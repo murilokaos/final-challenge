@@ -9,8 +9,6 @@ module.exports = {
 
       const validPassword = await user.checkPassword(password);
 
-      console.log(validPassword);
-
       if (validPassword) {
         const token = await user.generateToken(user);
         console.log(token);

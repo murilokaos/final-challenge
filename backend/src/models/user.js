@@ -13,13 +13,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         beforeSave: hashPassword,
-        beforeBulkUpdate: user => console.log(user),
+        beforeUpdate: async user => {
+          if (!user.changed('name') || !user.changed('password')) return null;
+          hashPassword(user);
+        },
       },
     }
   );
 
   User.prototype.checkPassword = function(password) {
-    console.log('entrou aqui');
     return bcrypt.compare(password, this.password);
   };
 
@@ -35,7 +37,9 @@ module.exports = (sequelize, DataTypes) => {
 };
 
 const hashPassword = async (instance, _) => {
-  if (!instance.changed('password')) return null;
+  if (!instance.changed('password')) {
+    return null;
+  }
   return instance.set(
     'password',
     await bcrypt.hash(instance.get('password'), 8)

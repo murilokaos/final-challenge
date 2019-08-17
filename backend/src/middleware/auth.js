@@ -19,6 +19,7 @@ module.exports = async (req, res, next) => {
     }
 
     req.body.email = decoded.email;
+    req.headers.userId = decoded.id;
     return next();
   } catch (error) {
     return res.status(401).json({ error: 'Invalid token' });

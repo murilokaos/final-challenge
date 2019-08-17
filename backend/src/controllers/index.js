@@ -1,7 +1,11 @@
-import * as AuthController from './auth';
+import * as SessionController from './session';
+import * as FileController from './file';
+import * as MeetupController from './meetup';
 import * as UserController from './user';
 
 module.exports = {
-  AuthController,
+  FileController,
+  MeetupController,
+  SessionController,
   UserController,
 };

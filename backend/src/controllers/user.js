@@ -17,10 +17,13 @@ module.exports = {
     const { email, ...data } = req.body;
     const { id } = req.params;
 
-    await User.update(data, { where: { id, email } });
+    const [, [updatedUser]] = await User.update(data, {
+      where: { id, email },
+      individualHooks: true,
+    });
 
-    const user = await User.findOne({ where: { email, id } });
+    updatedUser.password = undefined;
 
-    return res.send({ id, name: user.name, email });
+    return res.send(updatedUser);
   },
 };
