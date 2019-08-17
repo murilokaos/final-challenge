@@ -24,6 +24,6 @@ module.exports = {
 
     updatedUser.password = undefined;
 
-    return res.send(updatedUser);
+    return res.status(200).json(updatedUser);
   },
 };

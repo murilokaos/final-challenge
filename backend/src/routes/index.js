@@ -61,4 +61,10 @@ routes.post(
   handler(MeetupController.store)
 );
 
+routes.put(
+  '/meetup/:id',
+  validate(validators.meetup.update),
+  handler(MeetupController.update)
+);
+
 module.exports = routes;
