@@ -13,9 +13,13 @@
     "date-fns": "^1.30.1",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-validation": "^1.0.2",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.9",
     "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
     "sequelize": "^5.15.0",
     "socket.io": "^2.2.0"
   },
@@ -32,6 +36,7 @@
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "sequelize-cli": "^5.5.0",
-    "sucrase": "^3.10.1"
+    "sucrase": "^3.10.1",
+    "youch": "^2.0.10"
   }
 }
