@@ -38,12 +38,16 @@ routes.post(
 );
 
 routes.post(
-  '/auth',
+  '/signin',
   validate(validators.user.auth),
   handler(SessionController.store)
 );
 
 routes.get('/file/:file', handler(FileController.show));
+
+routes.get('/meetups', handler(MeetupController.index));
+
+routes.get('/meetups/:id', handler(MeetupController.show));
 
 routes.use(authMiddleware);
 
@@ -54,6 +58,8 @@ routes.put(
 );
 
 routes.post('/file', upload.single('banner'), handler(FileController.store));
+
+routes.get('/user/meetups', handler(MeetupController.index));
 
 routes.post(
   '/meetup',
@@ -67,4 +73,5 @@ routes.put(
   handler(MeetupController.update)
 );
 
+routes.delete('/meetup/:id', handler(MeetupController.delete));
 module.exports = routes;

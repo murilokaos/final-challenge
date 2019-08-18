@@ -20,4 +20,6 @@ module.exports = {
 
     res.sendFile(filePath);
   },
+
+  async delete(req, res) {},
 };

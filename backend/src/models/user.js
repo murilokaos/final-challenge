@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     return token;
   };
 
+  User.associate = function(models) {
+    User.hasMany(models.Meetup, { foreignKey: 'userId' });
+  };
+
   return User;
 };
 
