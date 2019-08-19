@@ -12,6 +12,7 @@ import {
   FileController,
   MeetupController,
   SessionController,
+  SubscriptionController,
   UserController,
 } from '../controllers';
 const upload = multer(multerConfig);
@@ -74,4 +75,7 @@ routes.put(
 );
 
 routes.delete('/meetup/:id', handler(MeetupController.delete));
+
+routes.post('/meetup/subscription', handler(SubscriptionController.store));
+
 module.exports = routes;

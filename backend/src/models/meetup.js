@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Meetup.associate = function(models) {
     Meetup.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Meetup.hasMany(models.Subscription, { foreignKey: 'meetupId' });
   };
 
   return Meetup;
