@@ -78,4 +78,6 @@ routes.delete('/meetup/:id', handler(MeetupController.delete));
 
 routes.post('/meetup/subscription', handler(SubscriptionController.store));
 
+routes.get('/meetup/subscriptions', handler(SubscriptionController.index));
+
 module.exports = routes;
