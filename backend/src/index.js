@@ -30,8 +30,9 @@ app.use(async (err, req, res, next) => {
 
   if (process.env.NODE_ENV !== 'production') {
     const youch = new Youch(err, req);
+    const jsonYouch = await youch.toJSON();
 
-    return res.json(await youch.toJSON());
+    return res.json(jsonYouch);
   }
 
   return res.status(500).json({ error: 'Internal server error!' });
