@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignIn from 'pages/Sign/SignIn';
 import SignUp from 'pages/Sign/SignUp';
 import Dashboard from 'pages/Dashboard';
+import Meetup from 'pages/Meetup';
 import PrivateRoute from './privateRoute';
 
 const Routes = () => (
@@ -12,6 +13,7 @@ const Routes = () => (
       <Route exact path="/" component={SignIn} />
       <Route path="/register" component={SignUp} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/meetup/:id/preview" component={Meetup} />
     </Switch>
   </BrowserRouter>
 );
