@@ -38,7 +38,7 @@ const Dashboard = () => {
       <Content>
         <Header>
           <Title>Meus meetups</Title>
-          <NewMeetup>
+          <NewMeetup to="/meetup">
             <MeetupIcon>add_circle_outline</MeetupIcon>
             <NewMeetupText>Novo meetup</NewMeetupText>
           </NewMeetup>

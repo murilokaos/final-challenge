@@ -10,7 +10,7 @@ import {
 const Header = () => (
   <Container>
     <Content>
-      <Link to="/dashboard"><Brand /></Link>
+      <Link to="/"><Brand /></Link>
       <MenuSection>
         <User>
           <Username>Murilo Henrique</Username>
