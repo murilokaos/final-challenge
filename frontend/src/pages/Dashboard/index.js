@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { formatBrDate } from 'services/utils/helpers';
+import MeetupsActions from 'store/ducks/meetups';
 
 import {
   Container,
@@ -19,19 +21,11 @@ import {
   Title,
 } from './styles';
 
-const Dashboard = () => {
-  const meus_meetups = [
-    {
-      id: 1,
-      title: 'Meetup de React Native',
-      date: '2019-08-22 23:00:00+00',
-    },
-    {
-      id: 2,
-      title: 'Meetup de ReactJS com ExpressJS',
-      date: '2019-08-22 21:00:00+00',
-    },
-  ];
+const Dashboard = ({ meetups, totalMeetups, ...props }) => {
+  useEffect(() => {
+    const { loadUserMeetupsRequest } = props;
+    loadUserMeetupsRequest();
+  }, []);
 
   return (
     <Container>
@@ -44,7 +38,7 @@ const Dashboard = () => {
           </NewMeetup>
         </Header>
         <MeetupsContainer>
-          {meus_meetups.map((meetup) => (
+          {totalMeetups > 0 ? meetups.map((meetup) => (
             <Meetup key={meetup.id} to={`/meetup/${meetup.id}/preview`}>
               <MeetupTitle>{meetup.title}</MeetupTitle>
               <MeetupInfoControls>
@@ -54,21 +48,35 @@ const Dashboard = () => {
                 </MeetupAction>
               </MeetupInfoControls>
             </Meetup>
-          ))}
+          )) : <MeetupTitle>Voce nao possui meetups cadastrados!</MeetupTitle>}
         </MeetupsContainer>
       </Content>
     </Container>
   );
 };
 
-const mapStateToProps = ({ user }) => ({
+Dashboard.propTypes = {
+  meetups: PropTypes.arrayOf([PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    location: PropTypes.string,
+    date: PropTypes.string,
+    banner: PropTypes.string,
+  })]).isRequired,
+  totalMeetups: PropTypes.number.isRequired,
+  loadUserMeetupsRequest: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = ({ user, meetups }) => ({
   user: user.user,
+  meetups: meetups.meetups,
+  totalMeetups: meetups.totalMeetups,
 });
 
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(MeetupsActions, dispatch);
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  mapDispatchToProps,
 )(Dashboard);

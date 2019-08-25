@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -40,6 +41,10 @@ const SignIn = (props) => {
       <Link to="/register">Criar conta grátis</Link>
     </Container>
   );
+};
+
+SignIn.propTypes = {
+  userLoginRequest: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(UserActions, dispatch);

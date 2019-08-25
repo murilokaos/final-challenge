@@ -16,11 +16,11 @@ import Immutable from 'seamless-immutable';
 const { Types, Creators } = createActions({
   userLoginRequest: ['email', 'password'],
   userLoginSuccess: ['user'],
-  userLoginFailure: ['error'],
+  userLoginFailure: null,
   userLogout: null,
   userRegisterRequest: ['name', 'email', 'password', 'confirmation'],
   userRegisterSuccess: null,
-  userRegisterFailure: ['error'],
+  userRegisterFailure: null,
 });
 
 export const UserTypes = Types;

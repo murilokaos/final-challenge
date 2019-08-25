@@ -1,7 +1,8 @@
 import React from 'react';
-import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as Yup from 'yup';
 import UserActions from 'store/ducks/user';
 
 import {
@@ -39,6 +40,10 @@ const SignUp = (props) => {
       <Link to="/">Já tenho login</Link>
     </Container>
   );
+};
+
+SignUp.propTypes = {
+  userRegisterRequest: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(UserActions, dispatch);
