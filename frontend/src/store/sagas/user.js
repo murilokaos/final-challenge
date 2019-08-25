@@ -2,20 +2,27 @@ import { call, put } from 'redux-saga/effects';
 import api from 'services/api';
 import UserActions from 'store/ducks/user';
 import history from 'services/history';
+import Toast from 'services/utils/toast';
 
 export function* userRegister({
   name, email, password, confirmation,
 }) {
   try {
-    const { data } = yield call('api.post', 'user', {
+    yield call(api.post, 'user', {
       name,
       email,
       password,
       password_confirmation: confirmation,
     });
     yield put(UserActions.userRegisterSuccess());
-  } catch (error) {
-    yield put(UserActions.userRegisterFailure('Erro ao cadastrar.'));
+
+    Toast({ type: 'success', title: 'Cadastro efetuado com sucesso, logue-se para continuar!' });
+    history.push('/');
+  } catch (err) {
+    const { data } = err.response;
+    Toast({ type: 'error', title: data.error });
+    yield put(UserActions.userRegisterFailure());
+    history.push('/register');
   }
 }
 
@@ -34,9 +41,14 @@ export function* userLogin({ email, password }) {
 
     yield put(UserActions.userLoginSuccess(user));
 
+    Toast({ type: 'success', title: 'Login efetuado com sucesso!' });
+
     history.push('/dashboard');
-  } catch (error) {
-    yield put(UserActions.userLoginFailure('Erro ao efetuar o login.'));
+  } catch (err) {
+    const { error } = err.response.data;
+    Toast({ type: 'error', title: error });
+    yield put(UserActions.userLoginFailure());
+    history.push('/');
   }
 }
 

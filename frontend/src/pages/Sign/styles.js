@@ -33,6 +33,15 @@ export const Form = styled(UnForm)`
   flex-direction: column;
   justify-content: center;
   width: 315px;
+
+  & span {
+    color: ${white};
+    margin-bottom: ${margin}px;
+    border-left: 2px solid ${primary};
+    margin-left: ${margin}px;
+    padding: ${padding / 2}px;
+    border-radius: ${borderRadius / 2}px;
+  }
 `;
 
 export const Input = styled(UnInput)`
@@ -45,6 +54,7 @@ export const Input = styled(UnInput)`
   margin-bottom: ${margin}px;
   font-size: ${fontSize}px;
   padding-left: ${padding * 2}px;
+  border: ${(props) => (props.error ? `1px solid ${primary}` : 'none')};
 `;
 
 export const Button = styled.button`
@@ -63,8 +73,4 @@ export const Link = styled(RouterLink)`
   font-weight: bold;
   padding: ${padding}px;
   text-decoration: none;
-`;
-
-export const Error = styled.span`
-  color: red;
 `;

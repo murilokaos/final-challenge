@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import UserActions from 'store/ducks/user';
 
 import {
-  Container, Form, Brand, Input, Button, Link, Error,
+  Container, Form, Brand, Input, Button, Link,
 } from 'pages/Sign/styles';
 
 const SignIn = (props) => {
@@ -28,15 +28,15 @@ const SignIn = (props) => {
     <Container>
       <Brand />
       <Form schema={schema} onSubmit={handleSubmit}>
-        <Input type="email" name="email" placeholder="Digite seu e-mail" />
+        <Input type="email" name="email" placeholder="Digite seu e-mail" error={error} />
         <Input
           type="password"
           name="password"
           placeholder="Sua senha secreta"
+          error={error}
         />
         <Button>{!loading ? 'Entrar' : 'Carregando...'}</Button>
       </Form>
-      <Error>{!!error && error}</Error>
       <Link to="/register">Criar conta grátis</Link>
     </Container>
   );
