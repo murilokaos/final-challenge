@@ -1,11 +1,13 @@
-import {
-  all, takeLatest, put, call, select,
-} from 'redux-saga/effects';
-import api from 'services/api';
-// import { Types as userTypes, Creators as userActions } from '~/store/ducks/user';
+import { all, takeLatest } from 'redux-saga/effects';
 
-function* rootSaga() {
-  // yield all([takeLatest(userTypes.LOAD_USER_REQUEST, user)]);
+import { UserTypes } from 'store/ducks/user';
+
+import { userLogin, userRegister, userLogout } from './user';
+
+export default function* rootSaga() {
+  return yield all([
+    takeLatest(UserTypes.USER_LOGIN_REQUEST, userLogin),
+    takeLatest(UserTypes.USER_REGISTER_REQUEST, userRegister),
+    takeLatest(UserTypes.USER_LOGOUT, userLogout),
+  ]);
 }
-
-export default rootSaga;

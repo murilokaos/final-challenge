@@ -45,7 +45,7 @@ const Dashboard = () => {
         </Header>
         <MeetupsContainer>
           {meus_meetups.map((meetup) => (
-            <Meetup to={`/meetup/${meetup.id}/preview`}>
+            <Meetup key={meetup.id} to={`/meetup/${meetup.id}/preview`}>
               <MeetupTitle>{meetup.title}</MeetupTitle>
               <MeetupInfoControls>
                 <MeetupDate>{formatBrDate(meetup.date)}</MeetupDate>
@@ -61,7 +61,9 @@ const Dashboard = () => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = ({ user }) => ({
+  user: user.user,
+});
 
 // const mapDispatchToProps = dispatch =>
 //   bindActionCreators(Actions, dispatch);

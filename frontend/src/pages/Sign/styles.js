@@ -64,3 +64,7 @@ export const Link = styled(RouterLink)`
   padding: ${padding}px;
   text-decoration: none;
 `;
+
+export const Error = styled.span`
+  color: red;
+`;
