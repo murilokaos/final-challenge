@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@rocketseat/unform": "^1.5.1",
+    "add": "^2.0.6",
     "axios": "^0.19.0",
     "date-fns": "^2.0.0-beta.5",
     "date-fns-tz": "^1.0.7",
@@ -15,12 +16,15 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "redux": "^4.0.4",
+    "redux-persist": "^5.10.0",
+    "redux-persist-seamless-immutable": "^2.0.0",
     "redux-saga": "^1.0.5",
     "reduxsauce": "^1.1.0",
     "seamless-immutable": "^7.1.4",
     "styled-components": "^4.3.2",
     "sweetalert2": "^8.16.3",
     "sweetalert2-react-content": "^1.1.0",
+    "yarn": "^1.17.3",
     "yup": "^0.27.0"
   },
   "scripts": {

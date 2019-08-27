@@ -1,12 +1,9 @@
 import styled from 'styled-components';
-import { FileInput, Input } from '@rocketseat/unform';
-import ReactDatePicker from 'react-datepicker';
+import { Input as UnInput, Form as UnForm } from '@rocketseat/unform';
 import {
   primary,
-  secondary,
   white,
   blackTransparent,
-  whiteTransparent,
 } from 'services/utils/colors';
 import {
   secondFontSize,
@@ -26,18 +23,28 @@ export const Container = styled.div`
   width: 100%;
 `;
 
-export const Content = styled.div`
+export const Form = styled(UnForm)`
   display: flex;
   flex: 1;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   max-width: 960px;
-  height: 100vh;
+  height: 100%;
   padding: 0 ${padding}px;
+
+  & span {
+    color: ${white};
+    margin-bottom: ${margin}px;
+    border-left: 2px solid ${primary};
+    margin-left: ${margin}px;
+    padding: ${padding / 2}px;
+    border-radius: ${borderRadius / 2}px;
+    width: 100%;
+    text-align: start;
+  }
 `;
 
-export const Text = styled.span`
+export const Text = styled.strong`
   padding: 0 ${padding}px;
   font-size: ${secondFontSize}px;
 `;
@@ -46,7 +53,7 @@ export const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: ${margin}px;
+  margin: ${margin}px 0;
 `;
 
 export const SaveMeetup = styled.button`
@@ -77,51 +84,26 @@ export const BannerPlaceholder = styled.label`
   width: 100%;
 `;
 
-export const FileUpload = styled(FileInput)`
-  opacity: 0;
-  width: 0.1px;
-  height: 0.1px;
-`;
-
-export const Banner = styled.div`
+export const Input = styled(UnInput)`
   width: 100%;
-  height: 300px;
-  border-radius: ${borderRadius}px;
-  margin-bottom: ${margin * 2}px;
-  background: rgba(0, 0, 0, 0.3);
-  color: ${whiteTransparent};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Title = styled(Input)`
-  width: 100%;
-  height: 50px;
+  height: ${(props) => (props.multiline ? '200px' : '50px')};;
   padding: ${padding}px ${padding}px;
   margin-bottom: ${margin}px;
   border-radius: ${borderRadius}px;
   font-size: ${fontSize}px;
   color: ${white};
   background: ${blackTransparent};
-`;
+  line-height: ${lineHeight}px;
+  resize: ${(props) => (props.multiline ? 'none' : undefined)};
+  border: ${(props) => (props.error ? `1px solid ${primary}` : 'none')};
 
-export const Description = styled(Input).attrs({
-  multiline: true,
-})`
-  width: 100%;
-  height: 200px;
-  padding: ${padding}px ${padding}px;
-  margin-bottom: ${margin}px;
-  border-radius: ${borderRadius}px;
-  font-size: ${fontSize}px;
-  color: ${white};
-  background: ${blackTransparent};
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const DateTime = styled.label.attrs({
-  for: 'date-time',
+  htmlFor: 'date-time',
 })`
   width: 100%;
   height: 50px;
@@ -134,16 +116,9 @@ export const DateTime = styled.label.attrs({
     background: transparent;
     color: ${white};
     font-size: ${fontSize}px;
+    width: 100%;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
-`;
-
-export const Address = styled(Input)`
-  width: 100%;
-  height: 50px;
-  padding: ${padding}px ${padding}px;
-  margin-bottom: ${margin}px;
-  border-radius: ${borderRadius}px;
-  font-size: ${fontSize}px;
-  color: ${white};
-  background: ${blackTransparent};
 `;

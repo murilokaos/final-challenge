@@ -1,7 +1,9 @@
-import { createStore, compose, applyMiddleware } from 'redux';
+import { persistStore } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
 
+import createStore from 'store/createStore';
 import reducers from 'store/ducks';
+import persistReducer from 'store/persistReducer';
 import sagas from 'store/sagas';
 
 const middlewares = [];
@@ -14,15 +16,9 @@ const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 
 middlewares.push(sagaMiddleware);
 
-const composer = process.env.NODE_ENV === 'development'
-  ? compose(
-    applyMiddleware(...middlewares),
-    console.tron.createEnhancer(),
-  )
-  : compose(applyMiddleware(...middlewares));
-
-const store = createStore(reducers, composer);
+const store = createStore(persistReducer(reducers), middlewares);
+const persistor = persistStore(store);
 
 sagaMiddleware.run(sagas);
 
-export default store;
+export { store, persistor };

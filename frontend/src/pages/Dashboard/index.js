@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { isPast, parseISO } from 'date-fns';
 import { formatBrDate } from 'services/utils/helpers';
 import MeetupsActions from 'store/ducks/meetups';
 
@@ -21,11 +21,14 @@ import {
   Title,
 } from './styles';
 
-const Dashboard = ({ meetups, totalMeetups, ...props }) => {
+const Dashboard = ({ history }) => {
+  const dispatch = useDispatch();
+  const meetups = useSelector((state) => state.meetups.meetups);
+  const totalMeetups = useSelector((state) => state.meetups.totalMeetups);
+
   useEffect(() => {
-    const { loadUserMeetupsRequest } = props;
-    loadUserMeetupsRequest();
-  }, []);
+    dispatch(MeetupsActions.loadUserMeetupsRequest());
+  }, []); // eslint-disable-line
 
   return (
     <Container>
@@ -38,17 +41,24 @@ const Dashboard = ({ meetups, totalMeetups, ...props }) => {
           </NewMeetup>
         </Header>
         <MeetupsContainer>
-          {totalMeetups > 0 ? meetups.map((meetup) => (
-            <Meetup key={meetup.id} to={`/meetup/${meetup.id}/preview`}>
-              <MeetupTitle>{meetup.title}</MeetupTitle>
-              <MeetupInfoControls>
-                <MeetupDate>{formatBrDate(meetup.date)}</MeetupDate>
-                <MeetupAction>
-                  <MeetupIcon>chevron_right</MeetupIcon>
-                </MeetupAction>
-              </MeetupInfoControls>
-            </Meetup>
-          )) : <MeetupTitle>Voce nao possui meetups cadastrados!</MeetupTitle>}
+          {totalMeetups > 0 ? (
+            meetups.map((meetup) => {
+              const isOutdated = isPast(parseISO(meetup.date));
+              return (
+                <Meetup key={meetup.id} disabled={isOutdated} onClick={!isOutdated ? () => history.push(`/meetup/${meetup.id}/preview`) : () => {}}>
+                  <MeetupTitle>{meetup.title}</MeetupTitle>
+                  <MeetupInfoControls>
+                    <MeetupDate isPast={isOutdated}>{formatBrDate(meetup.date)}</MeetupDate>
+                    <MeetupAction>
+                      <MeetupIcon>chevron_right</MeetupIcon>
+                    </MeetupAction>
+                  </MeetupInfoControls>
+                </Meetup>
+              );
+            })
+          ) : (
+            <MeetupTitle>Você não possui meetups cadastrados!</MeetupTitle>
+          )}
         </MeetupsContainer>
       </Content>
     </Container>
@@ -56,27 +66,9 @@ const Dashboard = ({ meetups, totalMeetups, ...props }) => {
 };
 
 Dashboard.propTypes = {
-  meetups: PropTypes.arrayOf([PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    location: PropTypes.string,
-    date: PropTypes.string,
-    banner: PropTypes.string,
-  })]).isRequired,
-  totalMeetups: PropTypes.number.isRequired,
-  loadUserMeetupsRequest: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
-const mapStateToProps = ({ user, meetups }) => ({
-  user: user.user,
-  meetups: meetups.meetups,
-  totalMeetups: meetups.totalMeetups,
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators(MeetupsActions, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Dashboard);
+export default Dashboard;

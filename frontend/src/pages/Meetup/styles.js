@@ -1,12 +1,10 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import {
   primary, secondary, white, whiteTransparent,
 } from 'services/utils/colors';
 import {
   secondFontSize, margin, padding, borderRadius, fontSize, lineHeight,
 } from 'services/utils/metrics';
-import bannerImg from 'assets/img/banner.jpg';
 
 export const Container = styled.div`
   display: flex;
@@ -49,35 +47,28 @@ export const ButtonsContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const EditMeetup = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${secondary};
-  font-size: ${secondFontSize}px;
-  font-weight: bold;
-  color: ${white};
-  border-radius: ${borderRadius}px;
-  padding: ${padding}px ${padding * 2}px;
-  margin-right: ${margin - 2}px;
-`;
-
 export const Text = styled.span`
   padding: 0 ${padding}px;
   font-size: ${secondFontSize}px;
+  text-decoration: ${(props) => (props.isPast ? 'line-through' : 'none')};
 `;
 
-export const DeleteMeetup = styled.button`
+export const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${primary};
+  background: ${(props) => (props.edit ? secondary : primary)};
   font-size: ${secondFontSize}px;
   font-weight: bold;
   color: ${white};
   border-radius: ${borderRadius}px;
   padding: ${padding}px ${padding * 2}px;
   margin-left: ${margin - 2}px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const MeetupIcon = styled.i.attrs({
@@ -86,11 +77,9 @@ export const MeetupIcon = styled.i.attrs({
   color: ${white};
 `;
 
-export const Banner = styled.img.attrs({
-  src: bannerImg,
-})`
-  width: 100%;
-  max-height: 300px;
+export const Banner = styled.img`
+  width: auto;
+  height: 300px;
   border-radius: ${borderRadius}px;
   margin-bottom: ${margin * 2}px;
 `;

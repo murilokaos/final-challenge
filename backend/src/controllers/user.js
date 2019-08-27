@@ -17,6 +17,18 @@ module.exports = {
     const { email, ...data } = req.body;
     const { id } = req.params;
 
+    if (data.oldPassword) {
+      const user = await User.findOne({
+        where: { email, id },
+      });
+
+      const validPassword = await user.checkPassword(data.oldPassword);
+
+      if (!validPassword) {
+        return res.status(401).json({ error: 'Senha atual inválida' });
+      }
+    }
+
     const [, [updatedUser]] = await User.update(data, {
       where: { id, email },
       individualHooks: true,

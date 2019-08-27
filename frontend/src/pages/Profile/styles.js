@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import { Input } from '@rocketseat/unform';
+import { Input as UnInput, Form as UnForm } from '@rocketseat/unform';
 import {
   primary,
-  secondary,
   white,
   blackTransparent,
-  whiteTransparent,
 } from 'services/utils/colors';
 import {
   secondFontSize,
@@ -13,7 +11,6 @@ import {
   padding,
   borderRadius,
   fontSize,
-  lineHeight,
 } from 'services/utils/metrics';
 
 export const Container = styled.div`
@@ -25,18 +22,40 @@ export const Container = styled.div`
   width: 100%;
 `;
 
-export const Content = styled.div`
+export const Form = styled(UnForm)`
   display: flex;
   flex: 1;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   max-width: 960px;
   height: 100vh;
   padding: 0 ${padding}px;
+
+  & span {
+    color: ${white};
+    margin-bottom: ${margin}px;
+    border-left: 2px solid ${primary};
+    margin-left: ${margin}px;
+    padding: ${padding / 2}px;
+    border-radius: ${borderRadius / 2}px;
+    width: 100%;
+    text-align: start;
+  }
 `;
 
-export const Text = styled.span`
+export const Input = styled(UnInput)`
+  width: 100%;
+  height: 50px;
+  padding: ${padding}px ${padding}px;
+  margin-bottom: ${margin}px;
+  border-radius: ${borderRadius}px;
+  font-size: ${fontSize}px;
+  color: ${white};
+  background: ${blackTransparent};
+  border: ${(props) => (props.error ? `1px solid ${primary}` : 'none')};
+`;
+
+export const Text = styled.strong`
   padding: 0 ${padding}px;
   font-size: ${secondFontSize}px;
 `;
@@ -66,61 +85,6 @@ export const MeetupIcon = styled.i.attrs({
   className: 'material-icons',
 })`
   font-size: ${(props) => (props.fontSize ? `${props.fontSize}px !important` : undefined)};
-`;
-
-export const Name = styled(Input)`
-  width: 100%;
-  height: 50px;
-  padding: ${padding}px ${padding}px;
-  margin-bottom: ${margin}px;
-  border-radius: ${borderRadius}px;
-  font-size: ${fontSize}px;
-  color: ${white};
-  background: ${blackTransparent};
-`;
-
-export const Email = styled(Input)`
-  width: 100%;
-  height: 50px;
-  padding: ${padding}px ${padding}px;
-  margin-bottom: ${margin}px;
-  border-radius: ${borderRadius}px;
-  font-size: ${fontSize}px;
-  color: ${white};
-  background: ${blackTransparent};
-`;
-
-export const Password = styled(Input)`
-  width: 100%;
-  height: 50px;
-  padding: ${padding}px ${padding}px;
-  margin-bottom: ${margin}px;
-  border-radius: ${borderRadius}px;
-  font-size: ${fontSize}px;
-  color: ${white};
-  background: ${blackTransparent};
-`;
-
-export const NewPassword = styled(Input)`
-  width: 100%;
-  height: 50px;
-  padding: ${padding}px ${padding}px;
-  margin-bottom: ${margin}px;
-  border-radius: ${borderRadius}px;
-  font-size: ${fontSize}px;
-  color: ${white};
-  background: ${blackTransparent};
-`;
-
-export const ConfirmationPassword = styled(Input)`
-  width: 100%;
-  height: 50px;
-  padding: ${padding}px ${padding}px;
-  margin-bottom: ${margin}px;
-  border-radius: ${borderRadius}px;
-  font-size: ${fontSize}px;
-  color: ${white};
-  background: ${blackTransparent};
 `;
 
 export const Space = styled.hr`

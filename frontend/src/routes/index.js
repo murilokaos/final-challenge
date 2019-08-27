@@ -16,7 +16,7 @@ const Routes = () => (
     <Route exact path="/" component={SignIn} />
     <Route path="/register" component={SignUp} />
     <Route exact path="/meetup/:id/preview" component={Meetup} isPrivate />
-    <Route path="/meetup" component={FormMeetup} isPrivate />
+    <Route path="/meetup/:id?" component={FormMeetup} isPrivate />
     <Route path="/dashboard" component={Dashboard} isPrivate />
     <Route path="/profile" component={Profile} isPrivate />
   </Switch>

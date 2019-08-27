@@ -36,7 +36,7 @@ const user = {
       id: joi.number().required(),
     },
     body: {
-      name: joi.string().required(),
+      name: joi.string(),
       email: joi
         .string()
         .email()

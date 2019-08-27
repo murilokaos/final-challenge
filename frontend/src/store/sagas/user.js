@@ -39,7 +39,7 @@ export function* userLogin({ email, password }) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    yield put(UserActions.userLoginSuccess(user));
+    yield put(UserActions.userLoginSuccess(user, token));
 
     Toast({ type: 'success', title: 'Login efetuado com sucesso!' });
 
@@ -52,7 +52,31 @@ export function* userLogin({ email, password }) {
   }
 }
 
+export function* userEdit({ id, data: newData }) {
+  try {
+    const { data } = yield call(api.put, `user/${id}`, newData);
+    const { name, email } = data;
+    yield put(UserActions.userEditProfileSuccess({ id, name, email }));
+    Toast({ type: 'success', title: 'Usuario editado com sucesso!' });
+    history.push('/');
+  } catch (err) {
+    const { error } = err.response.data;
+    Toast({ type: 'error', title: error });
+    yield put(UserActions.userEditProfileFailure());
+  }
+}
+
 export function userLogout() {
   localStorage.removeItem('@Meetapp/TOKEN');
   history.push('/');
+}
+
+export function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.user;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
 }

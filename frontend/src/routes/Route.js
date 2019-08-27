@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 import Header from 'components/Header';
 
 const Routes = ({ component: Component, isPrivate, ...rest }) => {
-  const isLoggedIn = !!localStorage.getItem('@Meetapp/TOKEN');
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   if (!isLoggedIn && isPrivate) {
     return <Redirect to="/" />;

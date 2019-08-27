@@ -63,7 +63,7 @@ export const MeetupsContainer = styled.div`
   width: 100%;
 `;
 
-export const Meetup = styled(Link)`
+export const Meetup = styled.button`
   height: 62px;
   background: ${blackTransparent};
   padding: ${padding}px ${padding * 2}px;
@@ -73,7 +73,12 @@ export const Meetup = styled(Link)`
   align-items: center;
   border-radius: ${borderRadius}px;
   width: 100%;
-  margin: ${margin / 2}px 0; 
+  margin: ${margin / 2}px 0;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const MeetupTitle = styled.h3`
@@ -91,6 +96,7 @@ export const MeetupInfoControls = styled.div`
 export const MeetupDate = styled.time`
   color: ${whiteTransparent};
   font-size: ${secondFontSize}px;
+  text-decoration: ${(props) => (props.isPast ? 'line-through' : 'none')};
 `;
 
 export const MeetupAction = styled.div`
