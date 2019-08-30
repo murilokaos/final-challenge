@@ -17,12 +17,12 @@ module.exports = {
           user: { id: user.id, name: user.name, email: user.email },
         });
       } else {
-        return res.status(401).json({
-          error: 'User/password not found or is incorrect',
-        });
+        throw new Error();
       }
     } catch (error) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({
+        error: 'User/password not found or is incorrect',
+      });
     }
   },
 };

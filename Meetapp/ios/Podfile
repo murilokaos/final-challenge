@@ -33,6 +33,8 @@ target 'Meetapp' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNToasty', :path => '../node_modules/react-native-toasty'
+
   target 'MeetappTests' do
     inherit! :search_paths
     # Pods for testing

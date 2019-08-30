@@ -34,8 +34,8 @@ export const Form = styled.View`
 `;
 
 export const Brand = styled.Image`
-  width: 42;
-  height: 42;
+  width: 42px;
+  height: 42px;
   margin: 15px auto;
   margin-bottom: 50px;
 `;

@@ -2,15 +2,19 @@ import { User } from '../models';
 
 module.exports = {
   async store(req, res) {
-    const { email, ...data } = req.body;
+    try {
+      const { email, ...data } = req.body;
 
-    if (await User.findOne({ where: { email } })) {
-      return res.status(400).json({ error: 'User already exists' });
+      if (await User.findOne({ where: { email } })) {
+        return res.status(400).json({ error: 'User already exists' });
+      }
+
+      const user = await User.create({ email, ...data });
+      user.password = undefined;
+      return res.send(user);
+    } catch (error) {
+      return res.status(400).json(error);
     }
-
-    const user = await User.create({ email, ...data });
-    user.password = undefined;
-    return res.send(user);
   },
 
   async update(req, res) {

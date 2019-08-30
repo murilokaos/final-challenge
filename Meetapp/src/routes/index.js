@@ -4,45 +4,52 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 
-import SignIn from 'pages/SignIn';
-import SignUp from 'pages/SignUp';
-import Meetups from 'pages/Meetups';
+import SignIn from 'pages/Sign/SignIn';
+import SignUp from 'pages/Sign/SignUp';
 
-const Routes = createAppContainer(
-  createSwitchNavigator(
-    {
-      Auth: createSwitchNavigator({
-        SignIn,
-        SignUp,
-      }),
-      App: createBottomTabNavigator(
-        {
-          Home: Meetups,
-          Subscriptions: Meetups,
-          Profile: Meetups,
-        },
-        {
-          resetOnBlur: true,
-          tabBarOptions: {
-            keyboardHidesTabBar: true,
-            activeTintColor: '#FFF',
-            inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
-            style: {
-              backgroundColor: '#9a68ed',
-              height: 55,
-            },
-            tabStyle: {
-              paddingTop: 5,
-              paddingBottom: 5,
-            },
+import Dashboard from 'pages/Dashboard';
+import Subscriptions from 'pages/Subscriptions';
+import Profile from 'pages/Profile';
+
+import { secondary } from 'services/utils/colors';
+
+const Routes = (isLoggedIn = false) =>
+  createAppContainer(
+    createSwitchNavigator(
+      {
+        Auth: createSwitchNavigator({
+          SignIn,
+          SignUp,
+        }),
+        App: createBottomTabNavigator(
+          {
+            Dashboard,
+            Subscriptions,
+            Profile,
           },
-        }
-      ),
-    },
-    {
-      initialRouteName: 'Auth',
-    }
-  )
-);
+          {
+            resetOnBlur: true,
+            tabBarOptions: {
+              keyboardHidesTabBar: true,
+              activeTintColor: '#FFF',
+              inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
+              style: {
+                backgroundColor: secondary,
+                height: 64,
+                borderTopColor: 'transparent',
+              },
+              tabStyle: {
+                paddingTop: 5,
+                paddingBottom: 10,
+              },
+            },
+          }
+        ),
+      },
+      {
+        initialRouteName: isLoggedIn ? 'App' : 'Auth',
+      }
+    )
+  );
 
 export default Routes;

@@ -25,14 +25,15 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(async (err, req, res, next) => {
   if (err instanceof validate.ValidationError) {
-    return res.json(err);
+    console.log(err, err.message);
+    return res.status(400).json(err.message);
   }
 
   if (process.env.NODE_ENV !== 'production') {
     const youch = new Youch(err, req);
     const jsonYouch = await youch.toJSON();
 
-    return res.json(jsonYouch);
+    return res.status(400).json(jsonYouch);
   }
 
   return res.status(500).json({ error: 'Internal server error!' });
