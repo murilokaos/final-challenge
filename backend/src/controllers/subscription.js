@@ -12,7 +12,7 @@ module.exports = {
     try {
       const meetup = await Meetup.findOne({
         where: { id: meetupId },
-        attributes: ['title', 'date'],
+        attributes: ['id', 'date'],
         include: [
           {
             model: User,
@@ -104,12 +104,21 @@ module.exports = {
               [Op.gt]: new Date(),
             },
           },
-          attributes: ['id', 'title', 'date', 'description', 'banner'],
-        },
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'name', 'email'],
+          attributes: [
+            'id',
+            'title',
+            'date',
+            'description',
+            'location',
+            'banner',
+          ],
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['id', 'name', 'email'],
+            },
+          ],
         },
       ],
       order: [[col('meetup.date'), 'ASC']],
@@ -119,5 +128,42 @@ module.exports = {
     });
 
     return res.status(200).json(subscriptions);
+  },
+
+  async delete(req, res) {
+    const { id } = req.params;
+    const { userId } = req.headers;
+
+    try {
+      const meetup = await Meetup.findOne({
+        where: { id },
+        attributes: ['id', 'date'],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'name', 'email'],
+          },
+        ],
+      });
+
+      if (isPast(meetup.date)) {
+        return res.status(400).json({
+          error: 'Unable to unsubscribe to past meetup!',
+        });
+      }
+
+      await Subscription.destroy({
+        where: { meetupId: id, userId },
+      });
+
+      return res
+        .status(200)
+        .json({ ok: true, msg: 'User subscription canceled!' });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ error: 'We were unable to unsubscript in meetup!' });
+    }
   },
 };
