@@ -12,7 +12,7 @@ module.exports = {
     try {
       const meetup = await Meetup.findOne({
         where: { id: meetupId },
-        attributes: ['id', 'date'],
+        attributes: ['id', 'title', 'date'],
         include: [
           {
             model: User,
@@ -91,7 +91,7 @@ module.exports = {
 
   async index(req, res) {
     const { userId } = req.headers;
-    const { page = 0 } = req.query;
+    const { page = 1 } = req.query;
 
     const subscriptions = await Subscription.findAndCountAll({
       where: { userId },
@@ -124,7 +124,7 @@ module.exports = {
       order: [[col('meetup.date'), 'ASC']],
       attributes: ['id'],
       limit: 10,
-      offset: 10 * page,
+      offset: 10 * (page - 1),
     });
 
     return res.status(200).json(subscriptions);

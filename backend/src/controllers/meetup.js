@@ -1,4 +1,4 @@
-import { isPast, isToday, endOfDay } from 'date-fns';
+import { isPast, isToday, endOfDay, startOfDay } from 'date-fns';
 import { toDate } from 'date-fns-tz';
 import { Op } from 'sequelize';
 import { Meetup, User } from '../models';
@@ -73,15 +73,16 @@ module.exports = {
 
   async index(req, res) {
     const { userId } = req.headers;
-    const { date, page = 0 } = req.query;
+    const { date, page = 1 } = req.query;
 
-    const dateOfSearch = date && endOfDay(toDate(date));
+    const endDay = date && endOfDay(toDate(date));
+    const startDay = date && startOfDay(toDate(date));
 
     const meetups = await Meetup.findAndCountAll({
       where: userId
         ? { userId }
         : date
-        ? { date: { [Op.lte]: dateOfSearch } }
+        ? { date: { [Op.between]: [startDay, endDay] } }
         : undefined,
       attributes: ['id', 'title', 'description', 'location', 'date', 'banner'],
       include: !userId && [
@@ -93,7 +94,7 @@ module.exports = {
       ],
       order: [['date', 'ASC']],
       limit: 10,
-      offset: 10 * page,
+      offset: 10 * (page - 1),
     });
 
     return res.status(200).json(meetups);
