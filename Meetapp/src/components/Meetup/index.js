@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { formatBrDate } from 'services/utils/helpers';
 import {
   Action,
@@ -36,5 +37,27 @@ const Meetup = ({ id, meetup, action, actionTitle, disabled }) => (
     </Content>
   </Container>
 );
+
+Meetup.propTypes = {
+  action: PropTypes.func.isRequired,
+  actionTitle: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  meetup: PropTypes.shape({
+    banner: PropTypes.string,
+    date: PropTypes.string,
+    location: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
+    user: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
+Meetup.defaultProps = {
+  disabled: undefined,
+  id: undefined,
+};
 
 export default Meetup;

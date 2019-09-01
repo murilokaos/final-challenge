@@ -8,9 +8,10 @@ import { sortByDate } from 'services/utils/helpers';
 
 export function* loadMeetups({ page, date }) {
   try {
+    const newDate = typeof date === 'object' ? date.toISOString() : date;
     const response = yield call(
       api.get,
-      `meetups?page=${page}&date=${date.toISOString()}`
+      `meetups?page=${page}&date=${newDate}`
     );
 
     const { rows, count } = response.data;

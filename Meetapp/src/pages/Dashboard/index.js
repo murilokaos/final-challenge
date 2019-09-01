@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { withNavigationFocus } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import addDays from 'date-fns/addDays';
@@ -31,7 +32,7 @@ const Dashboard = ({ isFocused }) => {
   const totalMeetups = useSelector(state => state.meetups.totalMeetups);
 
   const [page, setPage] = useState(1);
-  const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false); // eslint-disable-line
   const [hasMore, setHasMore] = useState(false);
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
@@ -126,8 +127,13 @@ const Dashboard = ({ isFocused }) => {
   );
 };
 
+Dashboard.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
+
 Dashboard.navigationOptions = {
   tabBarLabel: 'Meetups',
+  // eslint-disable-next-line react/prop-types
   tabBarIcon: ({ tintColor }) => (
     <Icon name="format-list-bulleted" size={20} color={tintColor} />
   ),

@@ -1,13 +1,13 @@
 import styled from 'styled-components/native';
-import { Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {
   primaryGradient,
   secondaryGradient,
   whiteTransparent,
+  primary,
 } from 'services/utils/colors';
-import { margin } from 'services/utils/metrics';
+import { margin, thirdFontSize } from 'services/utils/metrics';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
@@ -50,4 +50,11 @@ export const Spacer = styled.View`
   background: ${whiteTransparent};
   margin-top: ${margin * 2}px;
   margin-bottom: ${margin * 3}px;
+`;
+
+export const Error = styled.Text`
+  font-size: ${thirdFontSize}px;
+  color: ${primary};
+  margin-left: ${margin / 2}px;
+  margin-bottom: ${margin}px;
 `;

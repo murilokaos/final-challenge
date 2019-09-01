@@ -3,8 +3,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   white,
   dark,
-  whiteTransparent,
-  blackTransparent,
   light,
   darkPrimary,
   primary,
@@ -23,7 +21,6 @@ import Button from 'components/Button';
 export const Container = styled.View.attrs({
   elevation: 2,
 })`
-  /* height: 345px; */
   width: 100%;
   background-color: ${white};
   border-radius: ${borderRadius}px;

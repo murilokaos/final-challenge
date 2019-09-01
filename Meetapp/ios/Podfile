@@ -27,13 +27,17 @@ target 'Meetapp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
-  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+
+
+  pod 'RNToasty', :path => '../node_modules/react-native-toasty'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  pod 'RNToasty', :path => '../node_modules/react-native-toasty'
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
   target 'MeetappTests' do
     inherit! :search_paths

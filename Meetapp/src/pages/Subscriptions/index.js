@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { withNavigationFocus } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -21,7 +22,7 @@ const Subscriptions = ({ isFocused }) => {
   );
 
   const [page, setPage] = useState(1);
-  const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false); // eslint-disable-line
   const [hasMore, setHasMore] = useState(false);
 
   async function loadSubscriptions(selectedPage = 1) {
@@ -77,8 +78,13 @@ const Subscriptions = ({ isFocused }) => {
   );
 };
 
+Subscriptions.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
+
 Subscriptions.navigationOptions = {
   tabBarLabel: 'Inscrições',
+  // eslint-disable-next-line react/prop-types
   tabBarIcon: ({ tintColor }) => (
     <Icon name="local-offer" size={20} color={tintColor} />
   ),

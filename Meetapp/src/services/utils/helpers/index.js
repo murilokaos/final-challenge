@@ -1,9 +1,9 @@
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import { utcToZonedTime } from 'date-fns-tz';
+import { toDate } from 'date-fns-tz';
 
 export function formatBrDate(date, filter) {
-  const newDate = utcToZonedTime(parseISO(date), 'America/Sao_Paulo');
+  const newDate = toDate(parseISO(date), { timeZone: 'America/Sao_Paulo' });
 
   return format(newDate, filter, { locale: ptBR });
 }

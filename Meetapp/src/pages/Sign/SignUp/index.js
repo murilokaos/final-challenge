@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import UserActions from 'store/ducks/user';
@@ -93,6 +93,12 @@ const SignUp = ({ navigation }) => {
       </Container>
     </Background>
   );
+};
+
+SignUp.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
 };
 
 export default SignUp;
