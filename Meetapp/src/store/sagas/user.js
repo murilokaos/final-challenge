@@ -5,6 +5,8 @@ import UserActions from 'store/ducks/user';
 import navigate from 'services/navigate';
 import Toast from 'services/utils/toast';
 
+import { meetupsUserLogout } from './meetups';
+
 export function* userRegister({ name, email, password, confirmation }) {
   try {
     yield call(api.post, 'user', {
@@ -22,7 +24,11 @@ export function* userRegister({ name, email, password, confirmation }) {
     });
     navigate('SignIn');
   } catch (err) {
-    Toast({ type: 'Error', title: 'Ocorreu um erro, verifique seus dados.' });
+    const { error } = err.response.data;
+    Toast({
+      type: 'Error',
+      title: error || 'Ocorreu um erro, verifique seus dados.',
+    });
     yield put(UserActions.userRegisterFailure());
   }
 }
@@ -45,7 +51,10 @@ export function* userLogin({ email, password }) {
     Toast({ type: 'Success', title: 'Login efetuado com sucesso!' });
   } catch (err) {
     const { error } = err.response.data;
-    Toast({ type: 'Error', title: error });
+    Toast({
+      type: 'Error',
+      title: error || 'Ocorreu um erro, verifique os dados.',
+    });
     yield put(UserActions.userLoginFailure());
   }
 }
@@ -58,12 +67,16 @@ export function* userEdit({ id, data: newData }) {
     Toast({ type: 'Success', title: 'Usuario editado com sucesso!' });
   } catch (err) {
     const { error } = err.response.data;
-    Toast({ type: 'Error', title: error });
+    Toast({
+      type: 'Error',
+      title: error || 'Ocorreu um erro, verifique os dados.',
+    });
     yield put(UserActions.userEditProfileFailure());
   }
 }
 
 export function userLogout() {
+  meetupsUserLogout();
   AsyncStorage.removeItem('@Meetapp/TOKEN');
 }
 

@@ -2,8 +2,18 @@ import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { utcToZonedTime } from 'date-fns-tz';
 
-export function formatBrDate(date) {
+export function formatBrDate(date, filter) {
   const newDate = utcToZonedTime(parseISO(date), 'America/Sao_Paulo');
 
-  return format(newDate, "dd 'de' MMMM, 'às' HH:mm'h'", { locale: ptBR });
+  return format(newDate, filter, { locale: ptBR });
+}
+
+export function sortByDate(array) {
+  return array.sort((a, b) => {
+    a = new Date(a.meetup.date);
+    b = new Date(b.meetup.date);
+
+    // eslint-disable-next-line no-nested-ternary
+    return a > b ? 1 : a < b ? -1 : 0;
+  });
 }

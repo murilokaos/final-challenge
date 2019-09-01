@@ -1,10 +1,12 @@
 import styled from 'styled-components/native';
-import { light, white } from 'services/utils/colors';
+import { light } from 'services/utils/colors';
 import { fontSize, margin, padding } from 'services/utils/metrics';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 0 ${padding * 2}px;
+  padding-top: ${padding * 3}px;
+  padding-right: ${padding * 3}px;
+  padding-left: ${padding * 3}px;
 `;
 
 export const List = styled.FlatList.attrs({
@@ -29,21 +31,3 @@ export const Empty = styled.Text`
   margin-top: ${margin * 1.5}px;
   text-align: center;
 `;
-
-export const DateFilter = styled.View`
-  justify-content: center;
-  align-items: center;
-  /* justify-self: center */
-  flex-direction: row;
-  margin-top: ${margin * 3}px;
-  margin-bottom: ${margin * 1.5}px;
-`;
-
-export const DateText = styled.Text`
-  align-content: center;
-  font-size: ${fontSize * 1.2}px;
-  color: ${white};
-  margin: 0 ${margin * 1.5}px;
-`;
-
-export const Navigator = styled.TouchableOpacity``;

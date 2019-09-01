@@ -11,7 +11,12 @@ import {
   setToken,
 } from './user';
 
-import { loadMeetups } from './meetups';
+import {
+  loadMeetups,
+  loadSubscriptions,
+  userSubscribe,
+  userUnsubscribe,
+} from './meetups';
 
 export default function* rootSaga() {
   return yield all([
@@ -21,5 +26,8 @@ export default function* rootSaga() {
     takeLatest(UserTypes.USER_EDIT_PROFILE_REQUEST, userEdit),
     takeLatest(UserTypes.USER_LOGOUT, userLogout),
     takeLatest(MeetupsTypes.LOAD_MEETUPS_REQUEST, loadMeetups),
+    takeLatest(MeetupsTypes.LOAD_USER_SUBSCRIPTIONS_REQUEST, loadSubscriptions),
+    takeLatest(MeetupsTypes.USER_SUBSCRIBE_REQUEST, userSubscribe),
+    takeLatest(MeetupsTypes.USER_UNSUBSCRIBE_REQUEST, userUnsubscribe),
   ]);
 }

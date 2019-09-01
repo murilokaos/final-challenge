@@ -7,7 +7,7 @@ import {
 
 const transformerConfig = {
   whitelistPerReducer: {
-    reducer: ['user', 'meetups'],
+    reducer: ['user'],
   },
 };
 

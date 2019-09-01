@@ -29,6 +29,12 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmationPassword, setConfirmationPassword] = useState('');
 
+  useEffect(() => {
+    setOldPassword('');
+    setNewPassword('');
+    setConfirmationPassword('');
+  }, [user]);
+
   function handleUpdate() {
     const newData = {};
     if (oldPassword && oldPassword.length >= 6) {
@@ -43,9 +49,6 @@ const Profile = () => {
 
     if (Object.keys(newData).length > 0) {
       dispatch(UserActions.userEditProfileRequest(user.id, newData));
-      setOldPassword('');
-      setNewPassword('');
-      setConfirmationPassword('');
     }
   }
 
@@ -61,6 +64,8 @@ const Profile = () => {
           <FormInput
             icon="person"
             placeholder="Digite seu nome"
+            autoCorrect={false}
+            autoCapitalize="words"
             returnKeyType="next"
             onSubmitEditing={() => oldPasswordRef.current.focus()}
             value={name}
