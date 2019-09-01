@@ -5,16 +5,57 @@
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
     }
+
+    .topo {
+      font-size: 60px;
+      color: #F94D6A;
+      background-color: #000000d8;
+      padding: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .content {
+      width: 100%;
+      margin: 0 25%;
+      word-wrap: break-word;
+    }
+
+    .red {
+      color: #F94D6A;
+    }
+
+    @media (max-width: 768px){
+      .content {
+        margin: 0 35px;
+      }
+    }
+
+    @media (max-width: 480px){
+      .content {
+        margin: 0;
+        margin-left: 5px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
-  <strong>Ola {{ meetup.user.name  }}, tudo bem?</strong>
-  <p>Houve uma nova inscriçao no seu evento: {{ meetup.title }}.</p>
-  <p>Dados do novo inscrito:</p>
-  <p>Nome: {{ user.name }}</p>
-  <p>E-mail: {{ user.email }}</p>
+  <div class="topo">M</div>
+  <div class="content">
+    <strong>Olá <span class="red" >{{ meetup.user.name  }}</span>, tudo bem?</strong>
+    <p>Houve uma nova inscrição no seu evento: <strong class="red" >{{ meetup.title }}.</strong></p>
+    <p>Dados do novo inscrito:</p>
+    <p>Nome: <strong class="red">{{ user.name }}</strong></p>
+    <p>E-mail: <strong class="red">{{ user.email }}</strong></p>
+    <p>Recomendamos enviar uma mensagem pra ele, com mais informaçoes sobre o evento.</p>
+    <p>Ahhhh e uma bela recepção com um belo <strong class="red">"Bem Vindo!"</strong></p>
+  </div>
 </body>
 
 </html>

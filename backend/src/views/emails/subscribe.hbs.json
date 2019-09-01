@@ -1,0 +1,12 @@
+{
+  "meetup": {
+    "user": {
+      "name": "Murilo Henrique"
+    },
+    "title": "Aprendendo React Legal"
+  },
+  "user": {
+    "name": "Diego Fernandes",
+    "email": "diego@rocketseat.com.br"
+  }
+}
